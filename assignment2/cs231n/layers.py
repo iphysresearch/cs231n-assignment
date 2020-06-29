@@ -443,7 +443,7 @@ def conv_backward_naive(dout, cache):
         x_ = padded_x
     else:
         x_ = x
-    
+
     db = np.sum(dout, axis=(0, 2, 3))  # simply sum up all axis except 1
     dx_ = np.zeros_like(x_)
     dw = np.zeros_like(w)
@@ -456,10 +456,7 @@ def conv_backward_naive(dout, cache):
                 dw[k, :, :, :] += np.sum(x_map * dout_map, axis=0)
                 dx_[:, :, stride*i:(stride*i+HH), stride*j:(stride*j+HH)] += \
                      (w[k, :, :, :])[np.newaxis, ...] * dout_map
-    if pad != 0:
-        dx = dx_[:, :, pad:-pad, pad:-pad]
-    else:
-        dx = dx_
+    dx = dx_[:, :, pad:-pad, pad:-pad] if pad != 0 else dx_
     #############################################################################
     #                             END OF YOUR CODE                              #
     #############################################################################

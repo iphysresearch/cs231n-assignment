@@ -73,8 +73,7 @@ def relu_backward(dout, cache):
   - dx: Gradient with respect to x
   """
   x = cache
-  dx = np.where(x > 0, dout, 0)
-  return dx
+  return np.where(x > 0, dout, 0)
 
 
 def batchnorm_forward(x, gamma, beta, bn_param):

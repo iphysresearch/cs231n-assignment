@@ -187,7 +187,7 @@ class Solver(object):
         - acc: Scalar giving the fraction of instances that were correctly
           classified by the model.
         """
-    
+
         # Maybe subsample the data
         N = X.shape[0]
         if num_samples is not None and N > num_samples:
@@ -207,9 +207,7 @@ class Solver(object):
             scores = self.model.loss(X[start:end])
             y_pred.append(np.argmax(scores, axis=1))
         y_pred = np.hstack(y_pred)
-        acc = np.mean(y_pred == y)
-
-        return acc
+        return np.mean(y_pred == y)
 
 
     def train(self):

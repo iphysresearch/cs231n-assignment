@@ -107,8 +107,8 @@ def grad_check_sparse(f, x, analytic_grad, num_checks=10, h=1e-5):
   in this dimensions.
   """
 
-  for i in range(num_checks):
-    ix = tuple([randrange(m) for m in x.shape])
+  for _ in range(num_checks):
+    ix = tuple(randrange(m) for m in x.shape)
 
     oldval = x[ix]
     x[ix] = oldval + h # increment by h

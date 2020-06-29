@@ -216,9 +216,7 @@ def max_pool_backward_reshape(dout, cache):
     dout_broadcast, _ = np.broadcast_arrays(dout_newaxis, dx_reshaped)
     dx_reshaped[mask] = dout_broadcast[mask]
     dx_reshaped /= np.sum(mask, axis=(3, 5), keepdims=True)
-    dx = dx_reshaped.reshape(x.shape)
-
-    return dx
+    return dx_reshaped.reshape(x.shape)
 
 
 def max_pool_forward_im2col(x, pool_param):

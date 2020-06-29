@@ -195,7 +195,7 @@ class CaptioningRNN(object):
         W_embed = self.params['W_embed']
         Wx, Wh, b = self.params['Wx'], self.params['Wh'], self.params['b']
         W_vocab, b_vocab = self.params['W_vocab'], self.params['b_vocab']
-    
+
         ###########################################################################
         # TODO: Implement test-time sampling for the model. You will need to      #
         # initialize the hidden state of the RNN by applying the learned affine   #
@@ -224,11 +224,11 @@ class CaptioningRNN(object):
         captions[:, 0] = self._start     # start with <START> token
         for t in range(1, max_length):
             prev_embeded_out = W_embed[captions[:, t-1]]
-            if self.cell_type == "rnn":
-                h, _ = rnn_step_forward(prev_embeded_out, prev_h, Wx, Wh, b)
-            elif self.cell_type == "lstm":
+            if self.cell_type == "lstm":
                 h, prev_c, _ = lstm_step_forward(prev_embeded_out, prev_h, prev_c,
                                                Wx, Wh, b)
+            elif self.cell_type == "rnn":
+                h, _ = rnn_step_forward(prev_embeded_out, prev_h, Wx, Wh, b)
             s, _ = affine_forward(h, W_vocab, b_vocab)
             captions[:, t] = np.argmax(s, axis=1)
             prev_h = h

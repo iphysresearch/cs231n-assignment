@@ -19,7 +19,7 @@ def visualize_grid(Xs, ubound=255.0, padding=1):
   y0, y1 = 0, H
   for y in range(grid_size):
     x0, x1 = 0, W
-    for x in range(grid_size):
+    for _ in range(grid_size):
       if next_idx < N:
         img = Xs[next_idx]
         low, high = np.min(img), np.max(img)

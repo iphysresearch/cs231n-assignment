@@ -85,11 +85,7 @@ def hog_feature(im):
   """
   
   # convert rgb to grayscale if needed
-  if im.ndim == 3:
-    image = rgb2gray(im)
-  else:
-    image = np.at_least_2d(im)
-
+  image = rgb2gray(im) if im.ndim == 3 else np.at_least_2d(im)
   sx, sy = image.shape # image size
   orientations = 9 # number of gradient bins
   cx, cy = (8, 8) # pixels per cell
@@ -116,7 +112,7 @@ def hog_feature(im):
     cond2 = temp_ori > 0
     temp_mag = np.where(cond2, grad_mag, 0)
     orientation_histogram[:,:,i] = uniform_filter(temp_mag, size=(cx, cy))[cx/2::cx, cy/2::cy].T
-  
+
   return orientation_histogram.ravel()
 
 
